@@ -6,6 +6,10 @@
 		{
 			"name": "ConnexionBetween2uC_MKR1010",
 			"path": "ConnexionBetween2uC_MKR1010"
+		},
+		{
+			"name": "ConnexionBetween2uC_IOT33NANO",
+			"path": "ConnexionBetween2uC_IOT33NANO"
 		}
 	],
 	"settings": {}

@@ -1,9 +1,8 @@
 #include <Arduino.h>
 #include <Wire.h>
-#include <Servo.h>
 #include "Timer.h"
 // Declaration des classes.
-Servo ServoMoteur;  // Création d'un objet de type Servo (un servo moteur).
+// Servo ServoMoteur;  // Création d'un objet de type Servo (un servo moteur).
 Timer Temp;
 
 unsigned long TimeDelay = 2000;
@@ -11,8 +10,8 @@ unsigned long TimeDelay = 2000;
 unsigned short int ValueGot = 0;
 void receiveEvent(int bytes);
 void setup() {
-	// Start the I2C Bus as Slave on address 9
-	Wire.begin(9); 
+	// Start the I2C Bus as Slave on address 10
+	Wire.begin(10); 
 	Serial.begin(9600);
 	// Attach a function to trigger when something is received.
 	Wire.onReceive(receiveEvent);
@@ -24,7 +23,7 @@ void receiveEvent(int bytes) {
 void loop() {
 	if (Temp.isTimerReady())
 	{
-		Serial.print("\nMKR1000\nLa valeur obtenue est : ");
+		Serial.print("\nIOT 33\nLa valeur obtenue est : ");
 		Serial.println(ValueGot);
 		Temp.startTimer(TimeDelay);		
 	}

@@ -33,6 +33,7 @@ void loop() {
 		}
 		// On envoie le signal via le protocole I2C.
 		Wire.beginTransmission(9); // transmit to device #9
+		Wire.beginTransmission(10); // transmit to device #9
 		Wire.write(ValueAngleServo);              // sends x 
 		Wire.endTransmission();    // stop transmitting
 		LastValueAngleServo = ValueAngleServo; // On sauvegarde la derniere variation.
