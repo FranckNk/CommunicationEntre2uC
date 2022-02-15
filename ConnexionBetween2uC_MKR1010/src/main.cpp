@@ -27,12 +27,14 @@ void setup() {
 	Wire.onReceive(receiveEvent);
 	// Configuration du mode des broches.
 	ServoMoteur.attach(PIN_SERVO_MOTEUR);
-	ResetServo();
+	LastValueGot = ServoMoteur.read();
 	Temp.startTimer(3000);
 }
 
 void receiveEvent(int bytes) {
 	ValueGot = Wire.read();    // read one character from the I2C
+	ServoMoteur.write(ValueGot);              // Dit au servoMoteur la position dans la variable 'AngleServo'
+	delay(DelayAttente);                       // Attendre le delay pour qu'il se positionne.
 }
 
 void ResetServo(){
@@ -70,14 +72,7 @@ void SetAngleServo(){
 }
 
 void loop() {
-	if (ValueGot != LastValueGot){
-		// Changeons la valeur du servo moteur avec la nouvelle valeur obtenue.
-		ServoMoteur.write(ValueGot);  
-		delay(DelayAttente); // Attendons que le servo moteur se positionne.
-		// On a obtenu une variation de 02 degres soit de plus ou soit de moins.
-		Serial.print("\n\nVariation OBTENUE.\n\n = ");
-		LastValueGot = ValueGot; // On sauvegarde la derniere variation.
-	}
+	
 	if (Temp.isTimerReady())
 	{
 		Serial.print("Last = ");
