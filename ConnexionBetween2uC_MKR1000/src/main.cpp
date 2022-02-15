@@ -32,9 +32,16 @@ void loop() {
 			Temp.startTimer(TimeDelay);		
 		}
 		// On envoie le signal via le protocole I2C.
-		Wire.beginTransmission(9); // transmit to device #9
-		Wire.beginTransmission(10); // transmit to device #9
-		Wire.write(ValueAngleServo);              // sends x 
+		// Ajout d'un nouvel composant I2C avec pour addresse 33.
+		Wire.beginTransmission(33);
+		Wire.write(ValueAngleServo); 
+		Wire.endTransmission();    // stop transmitting
+		
+		// pour une transmission correcte, envoyer et finir la trans
+		// mission pour un uC avant de faire pour l'autre.
+		// Ajout d'un nouvel composant I2C avec pour addresse 10 
+		Wire.beginTransmission(10); 
+		Wire.write(ValueAngleServo);  
 		Wire.endTransmission();    // stop transmitting
 		LastValueAngleServo = ValueAngleServo; // On sauvegarde la derniere variation.
 		} 

@@ -11,7 +11,7 @@ unsigned short int ValueGot = 0;
 void receiveEvent(int bytes);
 void setup() {
 	// Start the I2C Bus as Slave on address 10
-	Wire.begin(10); 
+	Wire.begin(33); 
 	Serial.begin(9600);
 	// Attach a function to trigger when something is received.
 	Wire.onReceive(receiveEvent);
@@ -27,6 +27,4 @@ void loop() {
 		Serial.println(ValueGot);
 		Temp.startTimer(TimeDelay);		
 	}
-	
-	
 }
