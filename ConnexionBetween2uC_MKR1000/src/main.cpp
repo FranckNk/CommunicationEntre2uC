@@ -1,3 +1,15 @@
+/*
+
+TITRE          : Projet Communication I2C : uC Peripherique. MKR1000.
+AUTEUR         : Franck Nkeubou Awougang
+DATE           : 13/02/2022
+DESCRIPTION    : uC Controlleur et utilisation du protocole I2C
+				 pour communication entre deux uC. Gestion de deux capteurs
+				 pour controler l'angle du servo.
+VERSION        : 0.0.1
+
+*/
+
 #include <Arduino.h>
 #include <Wire.h>
 #include "Timer.h"
@@ -20,6 +32,7 @@ void setup() {
 	pinMode(PIN_PUSH_BUTTON, INPUT);
 	// Start the I2C Bus as Master
 	Serial.begin(9600);
+	// Demarrage du protocol I2C en tant que controleur.
 	Wire.begin(); 
 	Temp.startTimer(3000);
 }
@@ -32,7 +45,7 @@ void loop() {
 		// On a détecté l'approche du mouvement dans le capteur. On peut alors modifier l'angle.
 		if (ValueAngleServo >= 180){
 			// On envoie le signal via le protocole I2C.
-			// Ajout d'un nouvel composant I2C avec pour addresse 33.
+			// vers le composant I2C avec pour addresse 33 (IOT 33).
 			Wire.beginTransmission(33);
 			Wire.write(ValueAngleServo); 
 			Wire.endTransmission();    // stop transmitting
@@ -41,6 +54,8 @@ void loop() {
 		}	
 		else{
 			ValueAngleServo += 1;			// On augmente l'angle
+			// On envoie le signal via le protocole I2C.
+			// vers le composant I2C avec pour addresse 10 (MKR1010).
 			Wire.beginTransmission(10); 
 			Wire.write(ValueAngleServo);  
 			Wire.endTransmission();    // stop transmitting
@@ -53,7 +68,7 @@ void loop() {
 		// On a détecté l'approche du mouvement dans le capteur. On peut alors modifier l'angle.
 		if (ValueAngleServo <= 0){
 			// On envoie le signal via le protocole I2C.
-			// Ajout d'un nouvel composant I2C avec pour addresse 33.
+			// vers le composant I2C avec pour addresse 33 (IOT 33).
 			Wire.beginTransmission(33);
 			Wire.write(ValueAngleServo); 
 			Wire.endTransmission();    // stop transmitting
@@ -62,6 +77,8 @@ void loop() {
 		}	
 		else{
 			ValueAngleServo -= 1;			// On augmente l'angle
+			// On envoie le signal via le protocole I2C.
+			// vers le composant I2C avec pour addresse 10 (MKR1010).
 			Wire.beginTransmission(10); 
 			Wire.write(ValueAngleServo);  
 			Wire.endTransmission();    // stop transmitting
